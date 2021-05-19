@@ -28,6 +28,7 @@
 
 <script>
 import frequencies from "./utils/frequencies";
+import transactionTypes from "./utils/transaction_types";
 
 import MainContainer from "./components/layout/MainContainer";
 
@@ -54,36 +55,36 @@ export default {
           id: 200,
           name: "Salary",
           amount: 1324.33,
-          frequency: "weekly",
-          type: "expense",
+          frequency: frequencies.weekly,
+          type: transactionTypes.expense,
         },
         {
           id: 201,
           name: "Cat Food",
           amount: 19.12,
-          frequency: "weekly",
-          type: "income",
+          frequency: frequencies.weekly,
+          type: transactionTypes.income,
         },
         {
           id: 202,
           name: "Car Payment",
           amount: 369.99,
-          frequency: "monthly",
-          type: "expense",
+          frequency: frequencies.monthly,
+          type: transactionTypes.expense,
         },
         {
           id: 203,
           name: "Mortgage",
           amount: 1788.27,
-          frequency: "monthly",
-          type: "expense",
+          frequency: frequencies.monthly,
+          type: transactionTypes.expense,
         },
         {
           id: 204,
           name: "Rental Income",
           amount: 600.0,
-          frequency: "monthly",
-          type: "income",
+          frequency: frequencies.monthly,
+          type: transactionTypes.income,
         },
       ],
       dialogVisible: false,

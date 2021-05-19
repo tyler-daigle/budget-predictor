@@ -1,9 +1,9 @@
 const frequencies = {
-  daily: "daily",
-  weekly: "weekly",
-  monthly: "monthly",
-  yearly: "yearly",
-  biweekly: "biweekly"
+  daily: "Daily",
+  weekly: "Weekly",
+  monthly: "Monthly",
+  yearly: "Yearly",
+  biweekly: "Biweekly"
 };
 
 export default frequencies;

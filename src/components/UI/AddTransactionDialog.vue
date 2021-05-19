@@ -25,11 +25,19 @@
 
       <div class="form-control">
         <label for="transaction-frequency">Transaction Frequency:</label>
-        <input
-          type="text"
+        <option-selector
           name="transaction-frequency"
-          placeholder="Transaction Frequency"
           v-model="transactionFrequency"
+          :choices="frequencyChoices"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="transaction-type">Transaction Frequency:</label>
+        <option-selector
+          name="transaction-type"
+          v-model="transactionType"
+          :choices="transactionTypeChoices"
         />
       </div>
 
@@ -38,6 +46,15 @@
           {{ buttonAction }}
         </button>
         <button type="button" @click="$emit('close-dialog')">Cancel</button>
+
+        <button
+          v-if="transactionData"
+          type="button"
+          @click="$emit('close-dialog')"
+          class="delete-button"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </dialog>
@@ -45,12 +62,18 @@
 
 <script>
 import frequencies from "../../utils/frequencies";
+import transactionTypes from "../../utils/transaction_types";
+
 import getNextId from "../../utils/id";
+import OptionSelector from "./OptionSelector";
 
 // TODO: Make a radio button so you can select between Income or Expense
 // TODO: Turn the frequency into a select list
 export default {
   emits: ["add-transaction", "edit-transaction", "close-dialog"],
+  components: {
+    OptionSelector,
+  },
   props: {
     // transactionData will be set if the user clicks on one of the items in
     // the transaction list - allowing them to edit the transaction
@@ -67,7 +90,10 @@ export default {
         : "",
       transactionFrequency: this.transactionData
         ? this.transactionData.frequency
-        : "",
+        : frequencies.weekly,
+      transactionType: this.transactionData
+        ? this.transactionData.type
+        : transactionTypes.expense,
     };
   },
   computed: {
@@ -78,6 +104,12 @@ export default {
         return "Add Transaction";
       }
     },
+    frequencyChoices() {
+      return Object.values(frequencies);
+    },
+    transactionTypeChoices() {
+      return Object.values(transactionTypes);
+    },
   },
   methods: {
     addTransaction() {
@@ -85,6 +117,7 @@ export default {
         name: this.transactionName,
         amount: Number.parseFloat(this.transactionAmount),
         frequency: this.transactionFrequency,
+        type: this.transactionType,
       };
 
       if (this.transactionData) {
@@ -95,11 +128,18 @@ export default {
         this.$emit("add-transaction", transaction);
       }
     },
+    frequencyChanged(value) {
+      console.log("Frequency Changed");
+      this.transactionFrequency = value;
+    },
   },
 };
 </script>
 
 <style scoped>
+button {
+  font-size: 0.75rem;
+}
 .add-transaction-dialog {
   border: solid 1px var(--secondary-color);
   box-shadow: 3px 3px 10px var(--dark-color);
@@ -118,6 +158,10 @@ export default {
 .form-control button {
   flex: 1;
   margin: 1rem 0.5rem 0;
+}
+
+.delete-button {
+  background-color: #ce4f4f;
 }
 label {
   flex: 1;

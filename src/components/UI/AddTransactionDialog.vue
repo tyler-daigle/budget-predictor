@@ -47,6 +47,8 @@
 import frequencies from "../../utils/frequencies";
 import getNextId from "../../utils/id";
 
+// TODO: Make a radio button so you can select between Income or Expense
+// TODO: Turn the frequency into a select list
 export default {
   emits: ["add-transaction", "edit-transaction", "close-dialog"],
   props: {

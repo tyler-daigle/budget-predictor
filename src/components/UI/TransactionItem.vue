@@ -1,13 +1,16 @@
 <template>
-  <div class="transaction-item-container">
-    <h3 class="transaction-name">{{ transactionData.name }}</h3>
-    <span class="transaction-amount transaction-data"
-      >Amount: {{ transactionData.amount }}</span
-    >
-    <span class="transaction-frequency transaction-data"
-      >Frequency: {{ transactionData.frequency }}</span
-    >
-  </div>
+  <tr class="transaction-item-row">
+    <td class="transaction-name">{{ transactionData.name }}</td>
+    <td class="transaction-amount transaction-data">
+      {{ transactionData.amount }}
+    </td>
+    <td class="transaction-frequency transaction-data">
+      {{ transactionData.frequency }}
+    </td>
+    <td class="transaction-type transaction-data">
+      {{ transactionData.type }}
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -24,20 +27,22 @@ export default {
 
 <style scoped>
 .transaction-name {
-  text-align: center;
-  margin: 0;
+  font-weight: bold;
+  padding-left: 1rem;
 }
 .transaction-data {
-  display: block;
+  padding: 0.5rem;
 }
-.transaction-item-container {
+.transaction-item-row {
   border: solid 1px var(--secondary-color);
-  margin-bottom: 1rem;
-  padding: 1rem;
   cursor: pointer;
 }
 
-.transaction-item-container:hover {
+tr:nth-child(odd) {
+  background-color: var(--primary-color);
+}
+
+.transaction-item-row:hover {
   background-color: var(--secondary-color);
 }
 </style>

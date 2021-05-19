@@ -3,12 +3,24 @@
     <the-header />
     <main-container>
       <template v-slot:left-side>
-        <the-budget-form @add-transaction="addTransaction" />
+        <add-transaction-dialog
+          v-if="dialogVisible"
+          @close-dialog="closeDialog"
+          @add-transaction="addTransaction"
+          @edit-transaction="editTransaction"
+          :transactionData="transactionToEdit"
+        />
+        <button type="button" @click="displayAddTransactionDialog">
+          Add Transaction
+        </button>
+        <the-transaction-list
+          :transactions="transactions"
+          @transaction-click="displayEditTransactionDialog"
+        />
       </template>
 
       <template v-slot:right-side>
         <h2>This is the right</h2>
-        <the-transaction-list :transactions="transactions" />
       </template>
     </main-container>
   </div>
@@ -20,13 +32,13 @@ import frequencies from "./utils/frequencies";
 import MainContainer from "./components/layout/MainContainer";
 
 import TheHeader from "./components/UI/TheHeader";
-import TheBudgetForm from "./components/UI/TheBudgetForm";
+import AddTransactionDialog from "./components/UI/AddTransactionDialog";
 import TheTransactionList from "./components/UI/TheTransactionList";
 
 export default {
   components: {
     TheHeader,
-    TheBudgetForm,
+    AddTransactionDialog,
     MainContainer,
     TheTransactionList,
   },
@@ -37,20 +49,41 @@ export default {
     // expenses negative and the income positive.
 
     return {
-      transactionId: 100,
       transactions: [],
+      dialogVisible: false,
+      transactionToEdit: null,
     };
   },
   methods: {
     addTransaction(transaction) {
-      transaction.id = this.nextId();
       console.log(transaction);
       this.transactions.push(transaction);
+      this.closeDialog();
     },
-    nextId() {
-      let id = this.transactionId;
-      this.transactionId++;
-      return id;
+    editTransaction(transaction) {
+      this.transactions = this.transactions.map((t) => {
+        if (t.id === transaction.id) {
+          return transaction;
+        } else {
+          return t;
+        }
+      });
+      this.closeDialog();
+    },
+    displayAddTransactionDialog() {
+      this.showDialog();
+    },
+    displayEditTransactionDialog(id) {
+      const transaction = this.transactions.find((t) => t.id === id);
+      this.transactionToEdit = transaction;
+      this.showDialog();
+    },
+    showDialog() {
+      this.dialogVisible = true;
+    },
+    closeDialog() {
+      this.dialogVisible = false;
+      this.transactionToEdit = null;
     },
   },
 };
@@ -69,5 +102,18 @@ body {
   box-sizing: border-box;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: solid 1px var(--secondary-color);
+  padding: 0.5rem 0.5rem;
+}
+button:hover {
+  background-color: var(--dark-color);
 }
 </style>

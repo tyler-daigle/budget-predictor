@@ -34,6 +34,13 @@ test("Getting a Transaction from the list by name should work", () => {
   expect(t).toEqual(a);
 });
 
+test("Getting a transaction from the list and changing it should NOT change the original transaction", () => {
+  list.add(a);
+  const t = list.getTransaction({ name: "Test Transaction" });
+  t.name = "Changed Transaction";
+  expect(a).not.toEqual(t);
+});
+
 test("Getting a transaction that doesn't exist should return null", () => {
   list.add(a);
   const t = list.getTransaction({ name: "Fake" });

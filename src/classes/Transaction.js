@@ -59,14 +59,14 @@ export class TransactionList {
     if (options.name) {
       let transaction = this.list.find(t => t.name === options.name);
       if (transaction) {
-        return transaction;
+        return { ...transaction };
       } else {
         return null;
       }
     } else if (options.id) {
       let transaction = this.list.find(t => t.id === options.id);
       if (transaction) {
-        return transaction;
+        return { ...transaction };
       } else {
         return null;
       }
@@ -75,7 +75,7 @@ export class TransactionList {
   }
 
   getTransactionsByType(type) {
-    return this.list.filter(t => t.type === type);
+    return [...this.list.filter(t => t.type === type)];
   }
 
   // updateTransaction() doesn't allow you to update the IDs of the Transactions
@@ -90,7 +90,7 @@ export class TransactionList {
     this.list = list;
   }
   getAll() {
-    return this.list;
+    return [...this.list];
   }
 
 }

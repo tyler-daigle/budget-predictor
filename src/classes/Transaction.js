@@ -1,4 +1,3 @@
-import frequencies from "../utils/frequencies";
 import getNextId from "../utils/id";
 
 export class Transaction {
@@ -39,12 +38,45 @@ Transaction.frequencies = {
   biweekly: "Biweekly"
 };
 
-class TransactionList {
+export class TransactionList {
   constructor() {
     this.list = [];
+    this.count = 0;
   }
 
   add(transaction) {
+    if (!(transaction instanceof Transaction)) {
+      throw new Error("Adding non Transaction object to list.");
+    }
     this.list.push(transaction);
+    this.count++;
   }
+
+  // get lets you search for a transaction by a field.
+  // Either use {name: "Transaction Name"} or {id: 1}
+  // The transaction will be returned if found or null if not.
+  getTransaction(options) {
+    if (options.name) {
+      let transaction = this.list.find(t => t.name === options.name);
+      if (transaction) {
+        return transaction;
+      } else {
+        return null;
+      }
+    } else if (options.id) {
+      let transaction = this.list.find(t => t.id === options.id);
+      if (transaction) {
+        return transaction;
+      } else {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  getTransactionsByType(type) {
+    return this.list.filter(t => t.type === type);
+  }
+
+
 }

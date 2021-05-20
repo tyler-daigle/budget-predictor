@@ -75,9 +75,12 @@ export class TransactionList {
   }
 
   getTransactionsByType(type) {
-    return [...this.list.filter(t => t.type === type)];
+    return this.list.filter(t => t.type === type);
   }
 
+  getTransactionsByFrequency(frequency) {
+    return this.list.filter(t => t.frequency === frequency);
+  }
   // updateTransaction() doesn't allow you to update the IDs of the Transactions
   updateTransaction(transaction) {
     let list = this.list.map(item => {

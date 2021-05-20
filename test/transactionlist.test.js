@@ -73,6 +73,34 @@ test("Getting transactions by type should work", () => {
   expect(expense.length).toEqual(numExpenseTypes);
 });
 
+test("Getting transactions by frequency should work", () => {
+  let weekly = 5;
+  let monthly = 6;
+  let daily = 9;
+  let biWeekly = 12;
+
+  for (let i = 0; i < weekly; i++) {
+    list.add(new Transaction("T2", 123.45, Transaction.frequencies.weekly, Transaction.types.income));
+  }
+  for (let i = 0; i < monthly; i++) {
+    list.add(new Transaction("T2", 123.45, Transaction.frequencies.monthly, Transaction.types.income));
+  }
+  for (let i = 0; i < daily; i++) {
+    list.add(new Transaction("T2", 123.45, Transaction.frequencies.daily, Transaction.types.expense));
+  }
+
+  for (let i = 0; i < biWeekly; i++) {
+    list.add(new Transaction("T2", 123.45, Transaction.frequencies.biweekly, Transaction.types.expense));
+  }
+
+  expect(list.count).toEqual(weekly + monthly + daily + biWeekly);
+
+  expect(list.getTransactionsByFrequency(Transaction.frequencies.weekly).length).toEqual(weekly)
+  expect(list.getTransactionsByFrequency(Transaction.frequencies.monthly).length).toEqual(monthly)
+  expect(list.getTransactionsByFrequency(Transaction.frequencies.daily).length).toEqual(daily)
+  expect(list.getTransactionsByFrequency(Transaction.frequencies.biweekly).length).toEqual(biWeekly)
+});
+
 test("Updating a Transaction should work", () => {
   list.add(a);
   let b = { ...a };

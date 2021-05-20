@@ -67,8 +67,6 @@ import transactionTypes from "../../utils/transaction_types";
 import getNextId from "../../utils/id";
 import OptionSelector from "./OptionSelector";
 
-// TODO: Make a radio button so you can select between Income or Expense
-// TODO: Turn the frequency into a select list
 export default {
   emits: ["add-transaction", "edit-transaction", "close-dialog"],
   components: {

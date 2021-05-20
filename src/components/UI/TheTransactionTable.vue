@@ -21,7 +21,6 @@
 </template>
 
 <script>
-// Maybe the transaction list should actually be a table with Edit and Delete links
 import TransactionItem from "./TransactionItem";
 
 export default {

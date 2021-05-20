@@ -8,6 +8,7 @@
           @close-dialog="closeDialog"
           @add-transaction="addTransaction"
           @edit-transaction="editTransaction"
+          @delete-transaction="deleteTransaction"
           :transactionData="transactionToEdit"
         />
         <button type="button" @click="displayAddTransactionDialog">
@@ -20,7 +21,10 @@
       </template>
 
       <template v-slot:right-side>
-        <h2>This is the right</h2>
+        <budget-forecast
+          :transactionList="transactionList"
+          :startingValue="1330"
+        />
       </template>
     </main-container>
   </div>
@@ -35,12 +39,15 @@ import TheHeader from "./components/UI/TheHeader";
 import AddTransactionDialog from "./components/UI/AddTransactionDialog";
 import TheTransactionTable from "./components/UI/TheTransactionTable";
 
+import BudgetForecast from "./components/UI/BudgetForecast";
+
 export default {
   components: {
     TheHeader,
     AddTransactionDialog,
     MainContainer,
     TheTransactionTable,
+    BudgetForecast,
   },
   created() {
     // Just sample data
@@ -107,6 +114,10 @@ export default {
     },
     editTransaction(transaction) {
       this.transactionList.updateTransaction(transaction);
+      this.closeDialog();
+    },
+    deleteTransaction(transaction) {
+      console.log(`Deleting transaction ${transaction.name}`);
       this.closeDialog();
     },
     // displayAddTransActionDialog() is the handler for when the "Add Transaction" button is pressed.

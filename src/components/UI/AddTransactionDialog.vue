@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-control">
-        <label for="transaction-type">Transaction Frequency:</label>
+        <label for="transaction-type">Transaction Type:</label>
         <option-selector
           name="transaction-type"
           v-model="transactionType"
@@ -50,7 +50,7 @@
         <button
           v-if="transactionData"
           type="button"
-          @click="$emit('close-dialog')"
+          @click="$emit('delete-transaction', transactionData)"
           class="delete-button"
         >
           Delete
@@ -68,7 +68,12 @@ import { Transaction } from "../../classes/Transaction";
 import OptionSelector from "./OptionSelector";
 
 export default {
-  emits: ["add-transaction", "edit-transaction", "close-dialog"],
+  emits: [
+    "add-transaction",
+    "edit-transaction",
+    "close-dialog",
+    "delete-transaction",
+  ],
   components: {
     OptionSelector,
   },

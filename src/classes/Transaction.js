@@ -78,5 +78,19 @@ export class TransactionList {
     return this.list.filter(t => t.type === type);
   }
 
+  // updateTransaction() doesn't allow you to update the IDs of the Transactions
+  updateTransaction(transaction) {
+    let list = this.list.map(item => {
+      if (item.id !== transaction.id) {
+        return item;
+      } else {
+        return transaction; // the updated transaction to replace
+      }
+    });
+    this.list = list;
+  }
+  getAll() {
+    return [...this.list];
+  }
 
 }

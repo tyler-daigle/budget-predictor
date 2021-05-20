@@ -64,6 +64,13 @@ test("Getting transactions by type should work", () => {
 
   expect(income.length).toEqual(numIncomeTypes);
   expect(expense.length).toEqual(numExpenseTypes);
+});
 
-
+test("Updating a Transaction should work", () => {
+  list.add(a);
+  let b = { ...a };
+  b.name = "Car Payment";
+  list.updateTransaction(b);
+  let t = list.getTransaction({ id: a.id });
+  expect(t.name).toEqual("Car Payment");
 });

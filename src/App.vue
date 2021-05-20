@@ -27,8 +27,7 @@
 </template>
 
 <script>
-import frequencies from "./utils/frequencies";
-import transactionTypes from "./utils/transaction_types";
+import { Transaction, TransactionList } from "./classes/Transaction";
 
 import MainContainer from "./components/layout/MainContainer";
 
@@ -43,6 +42,50 @@ export default {
     MainContainer,
     TheTransactionTable,
   },
+  created() {
+    const transactions = [
+      {
+        id: 200,
+        name: "Salary",
+        amount: 1324.33,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 201,
+        name: "Cat Food",
+        amount: 19.12,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 202,
+        name: "Car Payment",
+        amount: 369.99,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 203,
+        name: "Mortgage",
+        amount: 1788.27,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 204,
+        name: "Rental Income",
+        amount: 600.0,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+    ];
+    transactions.forEach((t) =>
+      this.transactionList.add(
+        new Transaction(t.name, t.amount, t.frequency, t.type)
+      )
+    );
+  },
   data() {
     // income type: {id: 0, name: "Whatever", amount: 324.33, frequency:"daily | weekly | biweekly | monthly | Date()" }
     // expense type: {id: 0, name: "", amount: -122.32, frequency: "daily | weekly | biweekly | monthly | Date()" }
@@ -50,61 +93,37 @@ export default {
     // expenses negative and the income positive.
 
     return {
-      transactions: [
-        {
-          id: 200,
-          name: "Salary",
-          amount: 1324.33,
-          frequency: frequencies.weekly,
-          type: transactionTypes.expense,
-        },
-        {
-          id: 201,
-          name: "Cat Food",
-          amount: 19.12,
-          frequency: frequencies.weekly,
-          type: transactionTypes.income,
-        },
-        {
-          id: 202,
-          name: "Car Payment",
-          amount: 369.99,
-          frequency: frequencies.monthly,
-          type: transactionTypes.expense,
-        },
-        {
-          id: 203,
-          name: "Mortgage",
-          amount: 1788.27,
-          frequency: frequencies.monthly,
-          type: transactionTypes.expense,
-        },
-        {
-          id: 204,
-          name: "Rental Income",
-          amount: 600.0,
-          frequency: frequencies.monthly,
-          type: transactionTypes.income,
-        },
-      ],
+      transactionList: new TransactionList(),
       dialogVisible: false,
       transactionToEdit: null,
     };
   },
+  computed: {
+    transactions() {
+      return this.transactionList.getAll();
+    },
+  },
   methods: {
     addTransaction(transaction) {
-      this.transactions.push(transaction);
+      const t = new Transaction(
+        transaction.name,
+        transaction.amount,
+        transaction.frequency,
+        transaction.type
+      );
+      this.transactionList.add(t);
       this.closeDialog();
     },
     editTransaction(transaction) {
       // replaces the edited transaction with the new one.
-      this.transactions = this.transactions.map((t) => {
-        if (t.id === transaction.id) {
-          return transaction;
-        } else {
-          return t;
-        }
-      });
+      // this.transactions = this.transactions.map((t) => {
+      //   if (t.id === transaction.id) {
+      //     return transaction;
+      //   } else {
+      //     return t;
+      //   }
+      // });
+      this.transactionList.updateTransaction(transaction);
       this.closeDialog();
     },
     // displayAddTransActionDialog() is the handler for when the "Add Transaction" button is pressed.
@@ -118,7 +137,7 @@ export default {
     // is sent to the AddTransactionDialog so that the form is prepopulated with the information
     // from the already entered transaction. The user can then edit the transaction.
     displayEditTransactionDialog(id) {
-      const transaction = this.transactions.find((t) => t.id === id);
+      const transaction = this.transactionList.getTransaction({ id: id });
       this.transactionToEdit = transaction;
       this.showDialog();
     },

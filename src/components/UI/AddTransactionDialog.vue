@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import frequencies from "../../utils/frequencies";
-import transactionTypes from "../../utils/transaction_types";
+// import frequencies from "../../utils/frequencies";
+// import transactionTypes from "../../utils/transaction_types";
+import { Transaction } from "../../classes/Transaction";
 
 import getNextId from "../../utils/id";
 import OptionSelector from "./OptionSelector";
@@ -88,10 +89,10 @@ export default {
         : "",
       transactionFrequency: this.transactionData
         ? this.transactionData.frequency
-        : frequencies.weekly,
+        : Transaction.frequencies.weekly,
       transactionType: this.transactionData
         ? this.transactionData.type
-        : transactionTypes.expense,
+        : Transaction.types.expense,
     };
   },
   computed: {
@@ -103,10 +104,10 @@ export default {
       }
     },
     frequencyChoices() {
-      return Object.values(frequencies);
+      return Object.values(Transaction.frequencies);
     },
     transactionTypeChoices() {
-      return Object.values(transactionTypes);
+      return Object.values(Transaction.types);
     },
   },
   methods: {

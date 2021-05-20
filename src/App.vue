@@ -43,6 +43,7 @@ export default {
     TheTransactionTable,
   },
   created() {
+    // Just sample data
     const transactions = [
       {
         id: 200,
@@ -87,11 +88,6 @@ export default {
     );
   },
   data() {
-    // income type: {id: 0, name: "Whatever", amount: 324.33, frequency:"daily | weekly | biweekly | monthly | Date()" }
-    // expense type: {id: 0, name: "", amount: -122.32, frequency: "daily | weekly | biweekly | monthly | Date()" }
-    // since they are both the same they could just be called "transactions" and just make the amount of the
-    // expenses negative and the income positive.
-
     return {
       transactionList: new TransactionList(),
       dialogVisible: false,
@@ -100,29 +96,16 @@ export default {
   },
   computed: {
     transactions() {
+      console.log("Changing...");
       return this.transactionList.getAll();
     },
   },
   methods: {
     addTransaction(transaction) {
-      const t = new Transaction(
-        transaction.name,
-        transaction.amount,
-        transaction.frequency,
-        transaction.type
-      );
-      this.transactionList.add(t);
+      this.transactionList.add(transaction);
       this.closeDialog();
     },
     editTransaction(transaction) {
-      // replaces the edited transaction with the new one.
-      // this.transactions = this.transactions.map((t) => {
-      //   if (t.id === transaction.id) {
-      //     return transaction;
-      //   } else {
-      //     return t;
-      //   }
-      // });
       this.transactionList.updateTransaction(transaction);
       this.closeDialog();
     },

@@ -65,7 +65,6 @@
 // import transactionTypes from "../../utils/transaction_types";
 import { Transaction } from "../../classes/Transaction";
 
-import getNextId from "../../utils/id";
 import OptionSelector from "./OptionSelector";
 
 export default {
@@ -82,6 +81,7 @@ export default {
     },
   },
   data() {
+    // set the values if transactionData is provided, prepopulating the form.
     return {
       transactionName: this.transactionData ? this.transactionData.name : "",
       transactionAmount: this.transactionData
@@ -97,6 +97,7 @@ export default {
   },
   computed: {
     buttonAction() {
+      // change the button text based on if a transaction object was provided or not.
       if (this.transactionData) {
         return "Edit Transaction";
       } else {
@@ -112,18 +113,18 @@ export default {
   },
   methods: {
     addTransaction() {
-      let transaction = {
-        name: this.transactionName,
-        amount: Number.parseFloat(this.transactionAmount),
-        frequency: this.transactionFrequency,
-        type: this.transactionType,
-      };
+      let transaction = new Transaction(
+        this.transactionName,
+        Number.parseFloat(this.transactionAmount),
+        this.transactionFrequency,
+        this.transactionType
+      );
 
       if (this.transactionData) {
+        //make sure to change the id back to what it was since new Transaction() creates a new id.
         transaction.id = this.transactionData.id;
         this.$emit("edit-transaction", transaction);
       } else {
-        transaction.id = getNextId();
         this.$emit("add-transaction", transaction);
       }
     },

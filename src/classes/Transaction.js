@@ -90,7 +90,7 @@ export class TransactionList {
     this.list = list;
   }
   getAll() {
-    return [...this.list];
+    return this.list;
   }
 
 }

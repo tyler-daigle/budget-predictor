@@ -1,9 +1,31 @@
+<template>
+  <section class="forecast-chart-container">
+    <header>
+      <h2 class="forecast-header">Your Forecast</h2>
+    </header>
+    <div class="graph-container">
+      <div class="graph">
+        <!-- <ul>
+          <li v-for="bar in barPercentages" :key="nextId * bar">{{ bar }}</li>
+        </ul> -->
+        <bar
+          v-for="barHeight in bars"
+          :key="barHeight + nextId"
+          :barHeight="barHeight"
+        />
+      </div>
+    </div>
+  </section>
+</template>
 
 <script>
-import { Line } from "vue-chartjs";
+import generateId from "../../utils/id";
+import Bar from "./Bar";
 
 export default {
-  extends: Line,
+  components: {
+    Bar,
+  },
   props: {
     forecastData: {
       type: Array,
@@ -11,69 +33,99 @@ export default {
     },
   },
   data() {
-    return {
-      chart: null,
-      context: null,
-    };
+    return {};
   },
-  mounted() {
-    this.context = this.$refs.chartCanvas.getContext("2d");
+  created() {
+    console.log("Forecast: ", this.forecastData);
+  },
+  watch: {
+    forecastData() {
+      console.log("Forecast Data", this.forecastData);
+    },
+  },
+  methods: {
+    maxInArray(nums) {
+      let largest = Math.abs(nums[0]);
+      for (let i = 1; i < nums.length; i++) {
+        if (Math.abs(nums[i]) > largest) {
+          largest = Math.abs(nums[i]);
+        }
+      }
+      return largest;
+    },
+    minInArray(nums) {
+      let smallest = Math.abs(nums[0]);
+      for (let i = 1; i < nums.length; i++) {
+        if (Math.abs(nums[i]) < smallest) {
+          smallest = Math.abs(nums[i]);
+        }
+      }
+      return smallest;
+    },
+  },
+  computed: {
+    /*
+      The charts are created using a percentage value. The tallest bar is the month with the most money.
+      The largest amount of money is the max value and is 100% height. The rest of the bars are less 
+      than the max and their percentages are created using the max value: (amount / max) * 100 = bar height
+      It is just a regular percentage calculation.
 
-    const options = {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    };
+      Negative values do work. The graph is set inside a flex container that is larger than the actual graph.
+      The graph will overflow downwards for negative values using translateY(100%), then setting the height
+      to a percentage will make the bar go downwards.
 
-    const data = {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-      datasets: [
-        {
-          label: "# of Votes",
-          data: this.forecastData,
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-          ],
-          borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ],
-          borderWidth: 1,
-        },
-      ],
-    };
+      The graph div is a flex container so adding bars, which are spans with width set to 100%, will cause 
+      the flex container to size its children. This makes adding bars easy and we don't have to worry about
+      setting the size of the container as we add more bars.
+    */
+    bars() {
+      let max = this.maxInArray(this.forecastData);
+      if (max === 0) {
+        // everything is negative
+        max = this.minInArray(this.forecastData);
+        // everything has to be flipped
+      }
+      const values = [];
 
-    this.renderChart(data, options);
+      if (max !== 0) {
+        this.forecastData.forEach((d) => values.push((d / max) * 100));
+      } else {
+        // assume the array is all 0? We can't divide by 0.
+        this.forecastData.forEach(() => values.push(0));
+      }
+
+      console.log(values);
+      return values;
+      // values.forEach((val) => insertBar(graph, `${val}%`));
+    },
+    nextId() {
+      return generateId();
+    },
   },
 };
 </script>
 
 <style scoped>
-canvas {
+.forecast-header {
+  text-align: center;
+}
+.forecast-chart-container {
   width: 100%;
+  height: 500px;
+}
+.graph-container {
+  display: flex;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.graph {
+  display: flex;
+  height: 70%;
+  width: 95%;
+  align-items: flex-end;
 }
 </style>

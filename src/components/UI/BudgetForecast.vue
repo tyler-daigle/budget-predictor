@@ -1,18 +1,21 @@
 <template>
   <div class="budget-forecast-container">
-    <!-- <h2>Budget Forecast</h2>
-    <p>There are {{ numTransactions }} items in the list</p>
-    <p>The Starting value is {{ startingValue }}</p>
-    <ul>
-      <li v-for="(amount, idx) in forecast" :key="idx">
-        {{ idx }}: {{ amount }}
-      </li>
-    </ul> -->
     <forecast-chart :forecastData="forecast" />
   </div>
 </template>
 
 <script>
+/*
+  <BudgetForecast> component is just a container for the actual
+  graph. This component takes the transactionList that is 
+  created in <App> and calls the method forecastBudget() on the
+  transactionList.
+
+  forecastBudget() returns a 12 element array, 1 element for each month.
+  Each element will contain the amount of money the user will have that
+  month after executing the transactions that they have added in the
+  <TheTransactionTable> component.
+*/
 import { forecastBudget } from "../../utils/calculate";
 import ForecastChart from "./ForecastChart";
 
@@ -38,7 +41,7 @@ export default {
       return this.transactionList.count;
     },
     forecast() {
-      return forecastBudget(this.transactionList);
+      return forecastBudget(this.transactionList, 1000);
     },
   },
 };

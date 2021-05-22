@@ -1,7 +1,7 @@
 <template>
   <section class="forecast-chart-container">
     <header>
-      <h2 class="forecast-header">Your Forecast</h2>
+      <h2 class="forecast-header">Your Budget Forecast For The Year</h2>
     </header>
     <div class="graph-container">
       <div class="graph">
@@ -9,9 +9,11 @@
           <li v-for="bar in barPercentages" :key="nextId * bar">{{ bar }}</li>
         </ul> -->
         <bar
-          v-for="barHeight in bars"
+          v-for="(barHeight, index) in bars"
           :key="barHeight + nextId"
           :barHeight="barHeight"
+          :monthTotal="forecastData[index]"
+          :barLabel="months[index]"
         />
       </div>
     </div>
@@ -33,7 +35,22 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      months: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+    };
   },
   created() {
     console.log("Forecast: ", this.forecastData);
@@ -94,6 +111,19 @@ export default {
         this.forecastData.forEach(() => values.push(0));
       }
 
+      /* 
+        check if the percentages are very close to each other. If they are the graph doesnt
+        look very good, all the bars will be almost the same height.
+      */
+
+      let avg = values.reduce((acc, d) => acc + d, 0) / values.length;
+      if (avg > 70) {
+        for (let i = 0; i < values.length - 1; i++) {
+          // change all but the last
+          values[i] -= 5.0;
+        }
+      }
+      console.log("Average: ", avg);
       console.log(values);
       return values;
       // values.forEach((val) => insertBar(graph, `${val}%`));

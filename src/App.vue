@@ -52,48 +52,48 @@ export default {
   },
   created() {
     // Just sample data
-    // const transactions = [
-    //   {
-    //     id: 200,
-    //     name: "Salary",
-    //     amount: 1324.33,
-    //     frequency: Transaction.frequencies.weekly,
-    //     type: Transaction.types.income,
-    //   },
-    //   {
-    //     id: 201,
-    //     name: "Cat Food",
-    //     amount: 19.12,
-    //     frequency: Transaction.frequencies.weekly,
-    //     type: Transaction.types.income,
-    //   },
-    //   {
-    //     id: 202,
-    //     name: "Car Payment",
-    //     amount: 369.99,
-    //     frequency: Transaction.frequencies.weekly,
-    //     type: Transaction.types.income,
-    //   },
-    //   {
-    //     id: 203,
-    //     name: "Mortgage",
-    //     amount: 1788.27,
-    //     frequency: Transaction.frequencies.weekly,
-    //     type: Transaction.types.income,
-    //   },
-    //   {
-    //     id: 204,
-    //     name: "Rental Income",
-    //     amount: 600.0,
-    //     frequency: Transaction.frequencies.weekly,
-    //     type: Transaction.types.income,
-    //   },
-    // ];
-    // transactions.forEach((t) =>
-    //   this.transactionList.add(
-    //     new Transaction(t.name, t.amount, t.frequency, t.type)
-    //   )
-    // );
+    const transactions = [
+      {
+        id: 200,
+        name: "Salary",
+        amount: 1324.33,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 201,
+        name: "Cat Food",
+        amount: 19.12,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 202,
+        name: "Car Payment",
+        amount: 369.99,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 203,
+        name: "Mortgage",
+        amount: 1788.27,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+      {
+        id: 204,
+        name: "Rental Income",
+        amount: 600.0,
+        frequency: Transaction.frequencies.weekly,
+        type: Transaction.types.income,
+      },
+    ];
+    transactions.forEach((t) =>
+      this.transactionList.add(
+        new Transaction(t.name, t.amount, t.frequency, t.type)
+      )
+    );
   },
   data() {
     return {

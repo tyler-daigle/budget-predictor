@@ -15,6 +15,7 @@ header {
   margin: 0;
 }
 h1 {
-  margin: 0 2rem;
+  margin: 0;
+  padding: 1rem;
 }
 </style>

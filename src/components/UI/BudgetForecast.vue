@@ -46,3 +46,8 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.budget-forecast-container {
+}
+</style>

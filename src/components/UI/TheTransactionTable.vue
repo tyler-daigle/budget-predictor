@@ -51,6 +51,10 @@ export default {
 th {
   text-align: left;
   padding: 1rem 0.25rem;
+  color: white;
+}
+th:first-child {
+  padding-left: 1rem;
 }
 thead {
   background-color: var(--secondary-color);

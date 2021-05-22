@@ -149,10 +149,15 @@ export default {
 
 <style>
 :root {
-  --text-color: #2f3e46;
+  /* --text-color: #2f3e46;
   --primary-color: #84a98c;
   --secondary-color: #cad2c5;
-  --dark-color: #354f52;
+  --dark-color: #354f52; */
+
+  --text-color: #2f3e46;
+  --primary-color: #5da4ce;
+  --secondary-color: #688daf;
+  --dark-color: #285675;
 }
 
 body {

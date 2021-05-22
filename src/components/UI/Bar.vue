@@ -37,7 +37,8 @@ export default {
       } else {
         return {
           height: `${this.barHeight}%`,
-          background: "linear-gradient(#354f42, #84a98c)",
+          background:
+            "linear-gradient(var(--primary-color), var(--secondary-color))",
         };
       }
     },

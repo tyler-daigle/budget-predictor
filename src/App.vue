@@ -119,6 +119,7 @@ export default {
     },
     deleteTransaction(transaction) {
       console.log(`Deleting transaction ${transaction.name}`);
+      this.transactionList.deleteTransaction(transaction);
       this.closeDialog();
     },
     // displayAddTransActionDialog() is the handler for when the "Add Transaction" button is pressed.

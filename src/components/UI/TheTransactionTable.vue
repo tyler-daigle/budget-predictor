@@ -16,7 +16,20 @@
         :transactionData="transaction"
       />
     </table>
-    <h2 v-else>Enter a new transaction</h2>
+    <section v-else class="instructions">
+      <h2 class="section-header">Enter a new transaction</h2>
+      <p>
+        Use the button above to add a transaction. You can add a monthly,
+        weekly, biweekly, or daily transaction. Each transaction can be either
+        an expense or income.
+      </p>
+
+      <p>
+        As you add transactions your yearly budget forecast will be calculated.
+        You can see how much money you will have each month based on your
+        transactions.
+      </p>
+    </section>
   </div>
 </template>
 
@@ -46,6 +59,7 @@ export default {
   margin-top: 1rem;
   border-collapse: collapse;
   width: 100%;
+
   font-size: 0.85rem;
   box-shadow: 3px 3px 5px var(--secondary-color);
 }

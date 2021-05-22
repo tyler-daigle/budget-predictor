@@ -1,7 +1,8 @@
 <template>
   <div class="budget-forecast-container">
-    <forecast-list :forecast="forecast" />
-    <transaction-totals :transactionList="transactionList" />
+    <button @click="toggleItem">{{ buttonText }}</button>
+    <forecast-list v-if="forecastVisible" :forecast="forecast" />
+    <transaction-totals v-else :transactionList="transactionList" />
   </div>
 </template>
 
@@ -26,6 +27,11 @@ export default {
     TransactionTotals,
     ForecastList,
   },
+  data() {
+    return {
+      forecastVisible: true,
+    };
+  },
   props: {
     transactionList: {
       type: Object,
@@ -45,6 +51,18 @@ export default {
     },
     forecast() {
       return forecastBudget(this.transactionList, 0);
+    },
+    buttonText() {
+      if (this.forecastVisible) {
+        return "Display Summary";
+      } else {
+        return "Display Forecast";
+      }
+    },
+  },
+  methods: {
+    toggleItem() {
+      this.forecastVisible = !this.forecastVisible;
     },
   },
 };

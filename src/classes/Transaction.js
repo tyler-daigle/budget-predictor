@@ -92,6 +92,11 @@ export class TransactionList {
     });
     this.list = list;
   }
+
+  deleteTransaction(transaction) {
+    this.list = this.list.filter(item => item.id !== transaction.id);
+    return this.list;
+  }
   getAll() {
     return [...this.list];
   }

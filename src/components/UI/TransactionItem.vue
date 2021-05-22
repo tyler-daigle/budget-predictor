@@ -2,7 +2,7 @@
   <tr class="transaction-item-row">
     <td class="transaction-name">{{ transactionData.name }}</td>
     <td class="transaction-amount transaction-data">
-      ${{ transactionData.amount }}
+      ${{ transactionData.amount.toFixed(2) }}
     </td>
     <td class="transaction-frequency transaction-data">
       {{ transactionData.frequency }}
@@ -41,14 +41,14 @@ export default {
 
 <style scoped>
 .transaction-name {
-  font-weight: bold;
+  /* font-weight: bold; */
   padding-left: 1rem;
 }
 .transaction-amount {
   color: #224b22;
 }
 .transaction-data {
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 .transaction-item-row {
   border: solid 1px var(--secondary-color);
@@ -60,7 +60,7 @@ tr:nth-child(odd) {
 }
 
 .transaction-item-row:hover {
-  background-color: var(--secondary-color);
+  background-color: #f5dae7;
 }
 .transaction-type {
   /* font-weight: bold; */

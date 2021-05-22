@@ -25,7 +25,6 @@ export default {};
 
 .container {
   margin-top: 1rem;
-  padding: 1rem;
 }
 
 @media (max-width: 900px) {

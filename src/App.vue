@@ -24,7 +24,7 @@
         <budget-forecast
           v-if="transactionList.count !== 0"
           :transactionList="transactionList"
-          :startingValue="1330"
+          :startingValue="0"
         />
       </template>
     </main-container>
@@ -155,7 +155,7 @@ export default {
   --dark-color: #354f52; */
 
   --text-color: #2f3e46;
-  --primary-color: #5da4ce;
+  --primary-color: #86b5d0;
   --secondary-color: #688daf;
   --dark-color: #285675;
 }
@@ -179,5 +179,9 @@ button {
 }
 button:hover {
   background-color: var(--dark-color);
+}
+
+.section-header {
+  border-bottom: solid 2px black;
 }
 </style>

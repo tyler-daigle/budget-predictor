@@ -47,6 +47,7 @@ export default {
   border-collapse: collapse;
   width: 100%;
   font-size: 0.85rem;
+  box-shadow: 3px 3px 5px var(--secondary-color);
 }
 th {
   text-align: left;
@@ -57,6 +58,7 @@ th:first-child {
   padding-left: 1rem;
 }
 thead {
+  border: solid 1px var(--secondary-color);
   background-color: var(--secondary-color);
 }
 </style>

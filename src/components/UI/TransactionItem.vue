@@ -60,7 +60,7 @@ tr:nth-child(odd) {
 }
 
 .transaction-item-row:hover {
-  background-color: #edf1ab;  
+  background-color: #d6e8ec;  
 }
 .transaction-type {
   /* font-weight: bold; */

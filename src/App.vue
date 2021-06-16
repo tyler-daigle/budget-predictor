@@ -172,7 +172,7 @@ export default {
 
 .demo-instructions {
   background-color: #b1eeb1;
-  padding: 1rem;
+  padding: 0 1rem;
   margin: 2rem 0;
   color: var(--text-color);
   font-size: .85rem;
@@ -203,6 +203,7 @@ body {
 #load-demo-button {
   background-color: #3ba53b;
   border: solid 1px #6bc06b;
+  margin-bottom: 1rem;
 }
 
 #add-transaction-button {

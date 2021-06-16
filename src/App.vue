@@ -19,6 +19,9 @@ export default {
     return {
       welcomeVisible: true
     }
+  },
+  created() {
+    document.title = "Budget Predictor";
   }
 }
 </script>

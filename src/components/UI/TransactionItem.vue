@@ -51,7 +51,7 @@ export default {
   padding: 0.25rem;
 }
 .transaction-item-row {
-  border: solid 1px var(--secondary-color);
+  border: solid 1px var(--secondary-color);  
   cursor: pointer;
 }
 
@@ -60,7 +60,7 @@ tr:nth-child(odd) {
 }
 
 .transaction-item-row:hover {
-  background-color: #f5dae7;
+  background-color: #edf1ab;  
 }
 .transaction-type {
   /* font-weight: bold; */

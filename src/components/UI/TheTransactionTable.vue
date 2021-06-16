@@ -34,7 +34,8 @@
       
       <p>
         As you add transactions they will appear in the transaction table. You can click on
-        a transaction to edit or delete the transaction.
+        a transaction to edit or delete the transaction. Your budget forecast will be 
+        adjusted as you add or remove transactions.
       </p>
     </section>
   </div>

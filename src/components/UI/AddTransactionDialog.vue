@@ -10,6 +10,7 @@
           name="transaction-name"
           placeholder="Transaction Name"
           v-model="transactionName"
+          required
         />
       </div>
 
@@ -118,6 +119,7 @@ export default {
   },
   methods: {
     addTransaction() {
+      // some form validation
       let transaction = new Transaction(
         this.transactionName,
         Number.parseFloat(this.transactionAmount),

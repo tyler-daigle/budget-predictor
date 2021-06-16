@@ -57,6 +57,9 @@
           Delete
         </button>
       </div>
+      <p v-if="inputError" class="error-message">
+        {{errorMessage}}
+      </p>
     </div>
   </dialog>
 </template>
@@ -99,6 +102,8 @@ export default {
       transactionType: this.transactionData
         ? this.transactionData.type
         : Transaction.types.expense,
+      inputError: false,
+      errorMessage: ""
     };
   },
   computed: {
@@ -120,6 +125,13 @@ export default {
   methods: {
     addTransaction() {
       // some form validation
+      if (this.transactionName === "" || isNaN(this.transactionAmount) || this.transactionAmount === "") {
+        this.inputError = true;
+        this.errorMessage = "Please insert a valid name and amount.";
+        setTimeout(() => this.inputError = false, 3000); // hide the error after 3 seconds
+        return;
+      }
+
       let transaction = new Transaction(
         this.transactionName,
         Number.parseFloat(this.transactionAmount),
@@ -177,5 +189,13 @@ label {
 input {
   flex: 1;
   font-family: inherit;
+}
+
+.error-message {
+  color: white;
+  background-color: #eb7979;
+  padding: 1rem;
+  border: solid 1px #e25757;
+  text-align: center;
 }
 </style>

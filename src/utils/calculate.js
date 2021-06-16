@@ -33,7 +33,7 @@ export function forecastBudget(transactionList, startingAmount = 0) {
       }
       if (week % 4 === 0) {
         // and monthly transactions
-        if (month < 12) {
+        if (month <= 12) {
           monthlyTransactions.forEach(t => monthlyTotal += executeTransaction(t));
           forecast[month] = monthlyTotal;
           month++;
@@ -46,7 +46,8 @@ export function forecastBudget(transactionList, startingAmount = 0) {
 
   // the loop ends and month is set to 12 but the monthly total wasn't set yet
   // since it skipped executing what was in the if statement (month < 12)
-  forecast[11] = monthlyTotal;
+  forecast[11] = forecast[12]; // monthlyTotal;
+  forecast.length--;
 
   return forecast;
 }

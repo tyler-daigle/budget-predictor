@@ -95,6 +95,7 @@ export class TransactionList {
 
   deleteTransaction(transaction) {
     this.list = this.list.filter(item => item.id !== transaction.id);
+    this.count = this.list.length;
     return this.list;
   }
   getAll() {

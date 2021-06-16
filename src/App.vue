@@ -12,13 +12,22 @@
           @delete-transaction="deleteTransaction"
           :transactionData="transactionToEdit"
         />
-        <button type="button" @click="displayAddTransactionDialog">
+        
+        <button id="add-transaction-button" type="button" @click="displayAddTransactionDialog">
           Add Transaction
         </button>
+
         <the-transaction-table
           :transactions="transactions"
           @transaction-click="displayEditTransactionDialog"
         />
+
+        <div v-if="transactions.length === 0" class="demo-instructions">
+          <p>
+            If you would like to load some data to view a demo, click the <strong>Load Demo</strong> button.
+          </p>
+          <button type="button" id="load-demo-button" @click="loadDemoData">Load Demo</button>
+        </div>
       </template>
 
       <template v-slot:right-side>
@@ -50,58 +59,13 @@ export default {
     MainContainer,
     TheTransactionTable,
     BudgetForecast,
-  },
-  created() {
-    // Just sample data
-    const transactions = [
-      {
-        id: 200,
-        name: "Salary",
-        amount: 1324.33,
-        frequency: Transaction.frequencies.weekly,
-        type: Transaction.types.income,
-      },
-      {
-        id: 201,
-        name: "Cat Food",
-        amount: 19.12,
-        frequency: Transaction.frequencies.weekly,
-        type: Transaction.types.income,
-      },
-      {
-        id: 202,
-        name: "Car Payment",
-        amount: 369.99,
-        frequency: Transaction.frequencies.weekly,
-        type: Transaction.types.income,
-      },
-      {
-        id: 203,
-        name: "Mortgage",
-        amount: 1788.27,
-        frequency: Transaction.frequencies.weekly,
-        type: Transaction.types.income,
-      },
-      {
-        id: 204,
-        name: "Rental Income",
-        amount: 600.0,
-        frequency: Transaction.frequencies.weekly,
-        type: Transaction.types.income,
-      },
-    ];
-    transactions.forEach((t) =>
-      this.transactionList.add(
-        new Transaction(t.name, t.amount, t.frequency, t.type)
-      )
-    );
-  },
+  },  
   data() {
     return {
       transactionList: new TransactionList(),
       dialogVisible: false,
       transactionToEdit: null,
-      overlayVisible: false
+      overlayVisible: false,
     };
   },
   computed: {
@@ -111,6 +75,45 @@ export default {
     },
   },
   methods: {
+    loadDemoData() {
+      const transactions = [
+        {               
+          name: "Groceries",
+          amount: 91.25,
+          frequency: Transaction.frequencies.weekly,
+          type: Transaction.types.expense,
+        },
+        {
+          name: "Car Payment",
+          amount: 369.99,
+          frequency: Transaction.frequencies.monthly,
+          type: Transaction.types.expense,
+        },
+        {
+          name: "Mortgage",
+          amount: 1788.27,
+          frequency: Transaction.frequencies.monthly,
+          type: Transaction.types.expense,
+        },
+        {
+          name: "Rental Income",
+          amount: 600.0,
+          frequency: Transaction.frequencies.monthly,
+          type: Transaction.types.income,
+        },
+        {
+          name: "Salary",
+          amount: 530.00,
+          frequency: Transaction.frequencies.weekly,
+          type: Transaction.types.income,
+        }
+      ];
+      transactions.forEach((t) =>
+        this.transactionList.add(
+          new Transaction(t.name, t.amount, t.frequency, t.type)
+        )
+      );
+    },
     addTransaction(transaction) {
       this.transactionList.add(transaction);
       this.closeDialog();
@@ -135,7 +138,7 @@ export default {
     // is sent to the AddTransactionDialog so that the form is prepopulated with the information
     // from the already entered transaction. The user can then edit the transaction.
     displayEditTransactionDialog(id) {
-      if(!this.dialogVisible) {
+      if (!this.dialogVisible) {
         const transaction = this.transactionList.getTransaction({ id: id });
         this.transactionToEdit = transaction;
         this.showDialog();
@@ -167,6 +170,15 @@ export default {
   --dark-color: #285675;
 }
 
+.demo-instructions {
+  background-color: #b1eeb1;
+  padding: 1rem;
+  margin: 2rem 0;
+  color: var(--text-color);
+  font-size: .85rem;
+  border: solid 1px #a6d4a6;
+}
+
 .focus-overlay {
   width: 100%;
   height: 100%;
@@ -178,6 +190,7 @@ export default {
   right: 100%;
   opacity: 0.8;
 }
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -185,6 +198,15 @@ body {
   font-family: "Poppins", sans-serif;
   /* color: var(--text-color); */
   color: black;
+}
+
+#load-demo-button {
+  background-color: #3ba53b;
+  border: solid 1px #6bc06b;
+}
+
+#add-transaction-button {
+  margin-top: 1rem;
 }
 
 button {

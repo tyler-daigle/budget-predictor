@@ -19,15 +19,22 @@
     <section v-else class="instructions">
       <h2 class="section-header">Enter a new transaction</h2>
       <p>
-        Use the button above to add a transaction. You can add a monthly,
-        weekly, biweekly, or daily transaction. Each transaction can be either
-        an expense or income.
+        Use the <strong>Add Transaction</strong> button above to add a new transaction. 
       </p>
 
       <p>
-        As you add transactions your yearly budget forecast will be calculated.
-        You can see how much money you will have each month based on your
-        transactions.
+         Each transaction can be either an expense or income. Some examples of transactions are:
+      </p>
+      <ul>
+        <li>Car Payments</li>
+        <li>Mortgage/Rent</li>
+        <li>Your Salary</li>
+        <li>The amount you spend each day on food.</li>
+      </ul>      
+      
+      <p>
+        As you add transactions they will appear in the transaction table. You can click on
+        a transaction to edit or delete the transaction.
       </p>
     </section>
   </div>

@@ -1,6 +1,7 @@
 <template>
   <section class="forecast-list-container">
     <h2 class="section-header">Your Forecast For The Year</h2>
+    <p class="forecast-details">This is how much you will have at the end of each month.</p>
     <ul>
       <li v-for="(amount, index) in forecast" :key="amount * index">
         <span class="month">{{ months[index] }}</span>
@@ -62,6 +63,11 @@ li {
   display: flex;
   border-bottom: dashed 1px #c9c9f5;
   justify-content: space-between;
+}
+
+.forecast-details {
+  font-size: 0.75rem;
+  margin-top: 0;
 }
 .month {
 }

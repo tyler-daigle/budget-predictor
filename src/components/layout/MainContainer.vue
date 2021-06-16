@@ -19,8 +19,8 @@ export default {};
   width: 70%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;  
 }
 
 .container {
@@ -30,7 +30,7 @@ export default {};
 @media (max-width: 900px) {
   .main-container {
     display: block;
-    width: 100%;
+    width: 90%;
   }
 }
 </style>

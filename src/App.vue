@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="overlayVisible" class="focus-overlay"></div>
     <the-header />
     <main-container>
       <template v-slot:left-side>
@@ -100,6 +101,7 @@ export default {
       transactionList: new TransactionList(),
       dialogVisible: false,
       transactionToEdit: null,
+      overlayVisible: false
     };
   },
   computed: {
@@ -133,15 +135,19 @@ export default {
     // is sent to the AddTransactionDialog so that the form is prepopulated with the information
     // from the already entered transaction. The user can then edit the transaction.
     displayEditTransactionDialog(id) {
-      const transaction = this.transactionList.getTransaction({ id: id });
-      this.transactionToEdit = transaction;
-      this.showDialog();
+      if(!this.dialogVisible) {
+        const transaction = this.transactionList.getTransaction({ id: id });
+        this.transactionToEdit = transaction;
+        this.showDialog();
+      }
     },
     showDialog() {
       this.dialogVisible = true;
+      this.overlayVisible = true;
     },
     closeDialog() {
       this.dialogVisible = false;
+      this.overlayVisible = false;
       this.transactionToEdit = null;
     },
   },
@@ -161,6 +167,17 @@ export default {
   --dark-color: #285675;
 }
 
+.focus-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: #e9eef0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 100%;
+  right: 100%;
+  opacity: 0.8;
+}
 body {
   margin: 0;
   box-sizing: border-box;

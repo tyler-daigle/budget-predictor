@@ -7,11 +7,6 @@
 <script>
 
 export default {
-  data() {
-    return {
-      welcomeVisible: true
-    }
-  },
   created() {
     document.title = "Budget Predictor";
   }

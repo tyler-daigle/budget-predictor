@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .wrapper {
-  width: 40%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -100,4 +100,5 @@ a:visited {
     align-items: center;
   }
 }
+
 </style>
